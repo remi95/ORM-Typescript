@@ -1,4 +1,5 @@
-import { Model, ModelConfig } from './model';
+import { Model, ModelConfig, RelationType } from './model';
+import { Album } from '~/models/album';
 
 export class Photo extends Model {
   albumId: number;
@@ -8,6 +9,13 @@ export class Photo extends Model {
 
   static config: ModelConfig = {
     endpoint: '/photos',
+    relations: {
+      album: {
+        type: RelationType.BelongsTo,
+        model: Album,
+        foreignKey: 'albumId',
+      },
+    },
   };
 
   constructor(photo: Photo) {

@@ -1,4 +1,6 @@
-import { Model, ModelConfig } from './model';
+import { Model, ModelConfig, RelationType } from './model';
+import { Photo } from '~/models/photo';
+import { Album } from '~/models/album';
 
 export interface AddressInterface {
   street: string;
@@ -28,6 +30,13 @@ export class User extends Model {
 
   static config: ModelConfig = {
     endpoint: '/users',
+    relations: {
+      albums: {
+        type: RelationType.HasMany,
+        model: Album,
+        foreignKey: 'userId',
+      },
+    },
   };
 
   constructor(user: User) {
